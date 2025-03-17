@@ -1,34 +1,90 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter,Routes,Route,Link,useNavigate, Outlet} from 'react-router-dom'
 
 function App() {
-  const [count, setCount] = useState(0)
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout/>}>
+            <Route path='/neet/online_coaching_11' element={<Class11program></Class11program>}></Route>
+            <Route path='/neet/online_coaching_12' element={<Class12program></Class12program>}></Route>
+            <Route path='/' element={<Landing></Landing>}></Route>
+            <Route path='*' element={<Errorpage></Errorpage>}></Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  )
+}
 
+
+function Layout(){
+  return(
+    <>
+     <div className='h-full'>
+      <Header></Header>    
+    </div>
+    <div className='h-[90vh] bg-zinc-400'>
+      <Outlet></Outlet>
+    </div>
+    <div>
+      FOOTER | CONTACT US
+    </div>
+    </>
+   
+  )
+}
+
+
+function Header(){
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+     <Link to="/">Home</Link>
+        |
+        <Link to="/neet/online_coaching_11">Class 11</Link>
+        |
+        <Link to="/neet/online_coaching_12">Class 12</Link>
     </>
+  )
+}
+
+function Landing(){
+  return (
+    <div>
+      welcome to allen
+    </div>
+  )
+}
+
+
+function Class11program(){
+  return (
+    <div>
+      class 11 program
+    </div>
+  )
+}
+
+function Class12program(){
+  const navigate=useNavigate()
+
+  function redirectuser(){
+    navigate("/")
+  }
+  return (
+    <div>
+      class 12 program
+      <button onClick={redirectuser}>Go back to landing page</button>
+    </div>
+  )
+}
+
+function Errorpage(){
+  return(
+    <div>
+       Sorry Page not found
+    </div>
   )
 }
 
